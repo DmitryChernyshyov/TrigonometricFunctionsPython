@@ -21,6 +21,7 @@ class Root(Tk):
     global a
     global ax
     global fig
+    global y2
     fig = Figure(figsize=(6,4) , dpi=100)
     a = fig.add_subplot(111)
     ax = fig.gca()
@@ -41,15 +42,14 @@ class Root(Tk):
         self.Entry2 = tk.Entry(self)
         self.Entry2.pack(side="top")
     def animate(self,i,):
-
-        #a = plt.gca()   
-        a.plot(x,np.tan(x))
-        a.plot(x[:i*m], y[:i*m], color='red', lw=1) 
+       
+        line, = a.plot(x[:i*m], y[:i*m], color='red', lw=1)
+        line, = a.plot(x[:i*m], y[:i*m], color='white', lw=2)
     def matlotCanvas(self):
         y = np.cos(x)
         y2 = np.cos(x)
 
-        line, = a.plot(x, np.cos(x))
+        line, = a.plot(x, np.sin(x))
         a.spines['left'].set_position('zero')
         a.spines['bottom'].set_position('zero')
         a.spines['top'].set_visible(False)
@@ -57,16 +57,16 @@ class Root(Tk):
         a.set_xlim(-2, 9)
         a.set_ylim(-1.4, 1.4)
         a.grid(ls='solid', lw=0.2)
-        line, = a.plot(x, np.sin(x))
+        #line, = a.plot(x, np.sin(x))
         #anim = animation.FuncAnimation(fig, self.animate,  fargs=(), interval=20, repeat=False)
-               
+
 
         canvas = FigureCanvasTkAgg(fig, self)
         canvas.get_tk_widget().pack(side = BOTTOM, fill = BOTH, expand = True)
-        anim = animation.FuncAnimation(fig, self.animate, frames=12,
-                                       interval=500, repeat=True)
+        toolbar = NavigationToolbar2TkAgg(canvas, self)   
+        anim = animation.FuncAnimation(fig, self.animate, fargs=(),
+                                       interval=30, repeat=True)
         canvas.show()
 if __name__ == '__main__':
     root = Root()
     root.mainloop()
- #toolbar = NavigationToolbar2TkAgg(canvas, self)
