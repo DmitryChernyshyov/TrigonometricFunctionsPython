@@ -35,12 +35,12 @@ class Root(Tk):
     def create_widgets(self):
         self.Button = tk.Button(self)
         self.Button["text"] = "Нарисовать"
-        self.Button.pack(side="top")
+        self.Button.pack(side = TOP)
         self.Button["command"] = self.draw
         self.Entry = tk.Entry(self)
-        self.Entry.pack(side="top")
+        self.Entry.pack(side = TOP)
         self.Entry2 = tk.Entry(self)
-        self.Entry2.pack(side="top")
+        self.Entry2.pack(side = TOP)
 
     def matlotCanvas(self):
         a.plot(-3.14/2, np.sin(-3.14/2), -3.14/2, np.cos(-3.14/2), marker = 'o')
@@ -56,7 +56,7 @@ class Root(Tk):
         #anim = animation.FuncAnimation(fig, self.animate,  fargs=(), interval=20, repeat=False)
         global canvas
         canvas = FigureCanvasTkAgg(fig, self)
-        canvas.get_tk_widget().pack(side = BOTTOM, fill = BOTH, expand = True)
+        canvas.get_tk_widget().pack(side =TOP, fill = BOTH)
         toolbar = NavigationToolbar2TkAgg(canvas, self)   
 
 
