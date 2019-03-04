@@ -35,24 +35,25 @@ class Root(Tk):
         self.matlotCanvas()
 
     def create_widgets(self):
-        f_top = Frame()
-        f_top2 = Frame()
+        f_topmain = Frame()
+        f_top = Frame(f_topmain)
+        f_top2 = Frame(f_topmain)
         l1 = Label(f_top, width=4, height=1,  text="F(y)=  ")
         l2 = Label(f_top2, width=4, height=1,  text="F(y)=  ")
-        f_top.pack(side= TOP)
         l1.pack(side=LEFT)
         l2.pack(side=LEFT)
-        f_top2.pack(side= TOP)
-        self.Button = tk.Button(self)
+        f_top.pack(side= LEFT, padx=5, pady=5)
+        f_top2.pack(side= LEFT, padx=5, pady=5)
+        self.Button = tk.Button(f_topmain)
         self.Button["text"] = "Нарисовать"
-        self.Button.pack(side = TOP)
+        self.Button.pack(side = RIGHT, padx=5, pady=5)
         self.Button["command"] = self.draw
 
         self.Entry = Entry(f_top)
         self.Entry.pack(side = LEFT)
         self.Entry2 = Entry(f_top2)
         self.Entry2.pack(side = LEFT)
-
+        f_topmain.pack(side= TOP,padx=5, pady=5)
     def matlotCanvas(self):
         a.plot(-3.14/2, np.sin(-3.14/2), -3.14/2, np.cos(-3.14/2), marker = 'o')
         a.plot(0,1,1.7,1, marker = 'o')
