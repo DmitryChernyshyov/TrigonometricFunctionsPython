@@ -11,6 +11,7 @@ from tkinter import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
 from datetime import datetime
+import time
 class Root(Tk):
     global x
     x = np.linspace(-math.pi/2,5*math.pi/2,100)
@@ -34,14 +35,23 @@ class Root(Tk):
         self.matlotCanvas()
 
     def create_widgets(self):
+        f_top = Frame()
+        f_top2 = Frame()
+        l1 = Label(f_top, width=4, height=1,  text="F(y)=  ")
+        l2 = Label(f_top2, width=4, height=1,  text="F(y)=  ")
+        f_top.pack(side= TOP)
+        l1.pack(side=LEFT)
+        l2.pack(side=LEFT)
+        f_top2.pack(side= TOP)
         self.Button = tk.Button(self)
         self.Button["text"] = "Нарисовать"
         self.Button.pack(side = TOP)
         self.Button["command"] = self.draw
-        self.Entry = tk.Entry(self)
-        self.Entry.pack(side = TOP)
-        self.Entry2 = tk.Entry(self)
-        self.Entry2.pack(side = TOP)
+
+        self.Entry = Entry(f_top)
+        self.Entry.pack(side = LEFT)
+        self.Entry2 = Entry(f_top2)
+        self.Entry2.pack(side = LEFT)
 
     def matlotCanvas(self):
         a.plot(-3.14/2, np.sin(-3.14/2), -3.14/2, np.cos(-3.14/2), marker = 'o')
@@ -62,6 +72,17 @@ class Root(Tk):
 
 
     def draw(self):
+        a.cla()
+        anim = ""
+        a.plot(-3.14/2, np.sin(-3.14/2), -3.14/2, np.cos(-3.14/2), marker = 'o')
+        a.plot(0,1,1.7,1, marker = 'o')
+        a.spines['left'].set_position('zero')
+        a.spines['bottom'].set_position('zero')
+        a.spines['top'].set_visible(False)
+        a.spines['right'].set_visible(False)
+        a.set_xlim(-2, 9)
+        a.set_ylim(-1.4, 1.4)
+        a.grid(ls='solid', lw=0.2)
         global y2
         y = self.Entry.get()
         if y == "cos(x)":
@@ -72,6 +93,14 @@ class Root(Tk):
             y = np.tan(x)
         elif y == "ctan(x)":
             y = -np.tan(x)
+        elif y == "sin(|x|)":
+            y = np.sin(abs(x))
+        elif y == "cos(|x|)":
+            y = np.cos(abs(x))
+        elif y == "tan(|x|)":
+            y = np.tan(abs(x))
+        elif y == "ctan(|x|)":
+            y = -np.tan(abs(x))
         y2 = self.Entry2.get()
         if y2 == "cos(x)":
             y2= np.cos(x)
@@ -81,6 +110,14 @@ class Root(Tk):
             y2 = np.tan(x)
         elif y2 == "ctan(x)":
             y2 = -np.tan(x)
+        elif y2 == "sin(|x|)":
+            y2 = np.sin(abs(x))
+        elif y2 == "cos(|x|)":
+            y2 = np.cos(abs(x))
+        elif y2 == "tan(|x|)":
+            y2 = np.tan(abs(x))
+        elif y2 == "ctan(|x|)":
+            y2 = -np.tan(abs(x))
         line, = a.plot(x, y)
 
         anim = animation.FuncAnimation(fig, self.animate,
@@ -89,6 +126,7 @@ class Root(Tk):
     def animate(self,i,):
         
         line, = a.plot(x[:i*m], y2[:i*m], color='red', lw=1)
+
         #line, = a.pl ot(x[:i*m], y[:i*m], color='white', lw=2)
 if __name__ == '__main__':
     root = Root()
