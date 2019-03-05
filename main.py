@@ -37,22 +37,40 @@ class Root(Tk):
     def create_widgets(self):
         f_topmain = Frame()
         f_top = Frame(f_topmain)
+        f_topsub = Frame(f_top)
+        f_topsub2 = Frame(f_top)
         f_top2 = Frame(f_topmain)
-        l1 = Label(f_top, width=4, height=1,  text="F(y)=  ")
-        l2 = Label(f_top2, width=4, height=1,  text="F(y)=  ")
-        l1.pack(side=LEFT)
-        l2.pack(side=LEFT)
-        f_top.pack(side= LEFT, padx=5, pady=5)
-        f_top2.pack(side= LEFT, padx=5, pady=5)
+        f_top2sub = Frame(f_topmain)
+        f_top2sub2 = Frame(f_topmain)
+        l1 = Label(f_topsub, width=5, height=1,  text="F(y)=  ")
+        l1sub = Label(f_topsub, width=6, height=1,  text="K or A = ")
+        l2 = Label(f_top2sub, width=4, height=1,  text="F(y)=  ")
+        l1sub2 = Label(f_top2sub, width=6, height=1,  text="K or A = ")
+
         self.Button = tk.Button(f_topmain)
         self.Button["text"] = "Нарисовать"
-        self.Button.pack(side = RIGHT, padx=5, pady=5)
         self.Button["command"] = self.draw
+        self.Entry3 = Entry(f_topsub2)
+        self.Entry = Entry(f_topsub2)
+        self.Entry.pack(side = TOP)
+        self.Entry2 = Entry(f_top2sub2)
+        self.Entry4 = Entry(f_top2sub2)
 
-        self.Entry = Entry(f_top)
-        self.Entry.pack(side = LEFT)
-        self.Entry2 = Entry(f_top2)
-        self.Entry2.pack(side = LEFT)
+        f_top2sub.pack(side= LEFT, padx=5, pady=5)
+        f_top2sub2.pack(side= LEFT, padx=5, pady=5)
+        f_topsub.pack(side= LEFT, padx=5, pady=5)
+        f_topsub2.pack(side= LEFT, padx=5, pady=5)
+        f_top.pack(side= LEFT, padx=5, pady=5)
+        f_top2.pack(side= LEFT, padx=5, pady=5)
+        self.Entry3.pack(side = TOP)
+        self.Entry2.pack(side = TOP)
+        self.Entry4.pack(side = TOP)
+        self.Button.pack(side = RIGHT, padx=5, pady=5)
+
+        l1.pack(side=TOP)
+        l1sub.pack(side=TOP)
+        l2.pack(side=TOP)
+        l1sub2.pack(side=TOP)
         f_topmain.pack(side= TOP,padx=5, pady=5)
     def matlotCanvas(self):
         a.plot(-3.14/2, np.sin(-3.14/2), -3.14/2, np.cos(-3.14/2), marker = 'o')
@@ -85,6 +103,18 @@ class Root(Tk):
         a.set_ylim(-1.4, 1.4)
         a.grid(ls='solid', lw=0.2)
         global y2
+        k = self.Entry3.get()
+        if k =="":
+            k = 1
+        else:
+            k = float(k)
+
+        k2 = self.Entry4.get()
+        if k2 =="":
+            k2 = 1
+        else:
+            k2 = float(k2)
+
         y = self.Entry.get()
         if y == "cos(x)":
             y = np.cos(x)
@@ -95,16 +125,41 @@ class Root(Tk):
         elif y == "ctan(x)":
             y = -np.tan(x)
         elif y == "sin(|x|)":
-            y = np.sin(abs(x))
+            y = abs(np.sin(x))
         elif y == "cos(|x|)":
-            y = np.cos(abs(x))
+            y = abs(np.cos(x))
         elif y == "tan(|x|)":
-            y = np.tan(abs(x))
+            y = abs(np.tan(x))
         elif y == "ctan(|x|)":
-            y = -np.tan(abs(x))
+            y = -abs(np.tan(x))
+        elif y == "cos(x+a)":
+            y = np.cos(x+k)
+        elif y == "sin(x+a)":
+            y = np.sin(x+k)
+        elif y == "tan(x+a)":
+            y = np.tan(x+k)
+        elif y == "ctan(x+a)":
+            y = -np.tan(x+k)
+        elif y == "ctan(x)+a":
+            y = -np.tan(x)+k
+        elif y == "tan(x)+a":
+            y = np.tan(x)+k
+        elif y == "sin(x)+a":
+            y = np.sin(x)+k
+        elif y == "cos(x)+a":
+            y = np.cos(x)+k
+        elif y == "kcos(x)":
+            y = k*np.cos(x)
+        elif y == "ksin(x)":
+            y = k*np.sin(x)
+        elif y == "ktan(x)":
+            y = k*np.tan(x)
+        elif y == "kctan(x)":
+            y = -k*np.tan(x)
+
         y2 = self.Entry2.get()
         if y2 == "cos(x)":
-            y2= np.cos(x)
+            y2 = np.cos(x)
         elif y2 == "sin(x)":
             y2 = np.sin(x)
         elif y2 == "tan(x)":
@@ -112,15 +167,39 @@ class Root(Tk):
         elif y2 == "ctan(x)":
             y2 = -np.tan(x)
         elif y2 == "sin(|x|)":
-            y2 = np.sin(abs(x))
+            y2 = abs(np.sin(x))
         elif y2 == "cos(|x|)":
-            y2 = np.cos(abs(x))
+            y2 = abs(np.cos(x))
         elif y2 == "tan(|x|)":
-            y2 = np.tan(abs(x))
+            y2 = abs(np.tan(x))
         elif y2 == "ctan(|x|)":
-            y2 = -np.tan(abs(x))
+            y2 = -abs(np.tan(x))
+        elif y2 == "cos(x+a)":
+            y2 = np.cos(x+k2)
+        elif y2 == "sin(x+a)":
+            y2 = np.sin(x+k2)
+        elif y2 == "tan(x+a)":
+            y2 = np.tan(x+k2)
+        elif y2 == "ctan(x+a)":
+            y2 = -np.tan(x+k2)
+        elif y2 == "ctan(x)+a":
+            y2 = -np.tan(x)+k2
+        elif y2 == "tan(x)+a":
+            y2 = np.tan(x)+k2
+        elif y2 == "sin(x)+a":
+            y2 = np.sin(x)+k2
+        elif y2 == "cos(x)+a":
+            y2 = np.cos(x)+k2
+        elif y2 == "kcos(x)":
+            y2 = k2*np.cos(x)
+        elif y2 == "ksin(x)":
+            y2 = k2*np.sin(x)
+        elif y2 == "ktan(x)":
+            y2 = k2*np.tan(x)
+        elif y == "kctan(x)":
+            y2 = -k2*np.tan(x)
         line, = a.plot(x, y)
-
+        
         anim = animation.FuncAnimation(fig, self.animate,
                                        interval=100, repeat=False)
         canvas.show()
