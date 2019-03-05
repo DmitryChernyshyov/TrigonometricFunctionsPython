@@ -156,6 +156,15 @@ class Root(Tk):
             y = k*np.tan(x)
         elif y == "kctan(x)":
             y = -k*np.tan(x)
+        elif y == "cos(kx)":
+            y = np.cos(k*x)
+        elif y == "sin(kx)":
+            y = np.sin(k*x)
+        elif y == "tan(kx)":
+            y = np.tan(k*x)
+        elif y == "ctan(kx)":
+            y = -np.tan(k*x)
+
 
         y2 = self.Entry2.get()
         if y2 == "cos(x)":
@@ -198,6 +207,14 @@ class Root(Tk):
             y2 = k2*np.tan(x)
         elif y == "kctan(x)":
             y2 = -k2*np.tan(x)
+        elif y2 == "cos(kx)":
+            y2 = np.cos(k2*x)
+        elif y2 == "sin(kx)":
+            y2 = np.sin(k2*x)
+        elif y2 == "tan(kx)":
+            y2 = np.tan(k2*x)
+        elif y == "ctan(kx)":
+            y2 = -np.tan(k2*x)
         line, = a.plot(x, y)
         
         anim = animation.FuncAnimation(fig, self.animate,
@@ -206,7 +223,6 @@ class Root(Tk):
     def animate(self,i,):
         
         line, = a.plot(x[:i*m], y2[:i*m], color='red', lw=1)
-
         #line, = a.pl ot(x[:i*m], y[:i*m], color='white', lw=2)
 if __name__ == '__main__':
     root = Root()
